@@ -1,0 +1,83 @@
+#include <SoftwareSerial.h>
+SoftwareSerial bl(2,4);//rx,tx
+void setup() 
+{
+  for(int i=10;i<14;i++)
+  {
+    pinMode(i,OUTPUT);
+  }
+  Serial.begin(9600);
+  bl.begin(9600);
+  // put your setup code here, to run once:
+
+}
+void forward()
+{
+    digitalWrite(10,0);
+    digitalWrite(11,1);
+    digitalWrite(12,1);
+    digitalWrite(13,0);
+}
+  void bacward()
+  {
+    digitalWrite(10,1);
+    digitalWrite(11,0);
+    digitalWrite(12,0);
+    digitalWrite(13,1);
+  }
+  void left()
+  {
+    digitalWrite(10,0);
+    digitalWrite(11,1);
+    digitalWrite(12,0);
+    digitalWrite(13,0);
+  }
+  void right()
+  {
+    digitalWrite(10,0);
+    digitalWrite(11,0);
+    digitalWrite(12,1);
+    digitalWrite(13,0);
+  }
+  void sto()
+    {
+      digitalWrite(10,0);
+      digitalWrite(11,0);
+      digitalWrite(12,0);
+      digitalWrite(13,0);
+    }
+void loop()
+{
+  if (bl.available())
+  {
+    char ch=(bl.read());
+    if (ch=='F')
+    {
+      forward();
+    }
+    if (ch=='B')
+    {
+      bacward();
+    }
+    if(ch=='L')
+    {
+      left();
+    }
+    if (ch=='R')
+    {
+      right();
+    }
+    if (ch=='S')
+    {
+      sto();
+    }
+    Serial.write(bl.read());
+  }
+  if(Serial.available())
+  {
+    bl.write(Serial.read());
+  }
+  // put your main code here, to run repeatedly:
+
+}
+
